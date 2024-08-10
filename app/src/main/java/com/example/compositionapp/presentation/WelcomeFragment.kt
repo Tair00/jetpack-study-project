@@ -30,7 +30,7 @@ class WelcomeFragment: Fragment() {
     private fun launchCooseLevelFragment(){
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, ChooseLevelFragment.newInstance())
-            .addToBackStack(null)
+            .addToBackStack(ChooseLevelFragment.NAME)
             .commit()
     }
     override fun onDestroyView() {
