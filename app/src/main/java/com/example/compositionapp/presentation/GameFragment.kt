@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.compositionapp.databinding.FragmentChooseLevelBinding
 import com.example.compositionapp.databinding.FragmentGameBinding
+import com.example.compositionapp.domain.entity.Level
 
 class GameFragment: Fragment() {
+    private lateinit var level: Level
     private  var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
         get ()= _binding ?: throw RuntimeException("FragmentGameBinding == null")
@@ -20,10 +22,29 @@ class GameFragment: Fragment() {
         _binding = FragmentGameBinding.inflate(inflater,container,false)
         return binding.root
     }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        parseArgs()
+    }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding =null
+    }
+
+    private fun parseArgs(){
+        level = requireArguments().getSerializable(KEY_LEVEL) as Level
+
+    }
+    companion object{
+        private const val KEY_LEVEL = "level"
+        fun newInstance(level: Level): GameFragment{
+            return GameFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(KEY_LEVEL,level)
+                }
+            }
+        }
     }
 }
