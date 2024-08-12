@@ -46,6 +46,10 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     private val _enoughPercentOfRightAnswers = MutableLiveData <Boolean>()
     val enoughPercentOfRightAnswers  : LiveData<Boolean>
         get() = _enoughPercentOfRightAnswers
+
+    private val _minPercent = MutableLiveData<Int>()
+    val minPercent : LiveData<Int>
+        get() = _minPercent
     fun startGame(level: Level){
         getGameSettings(level)
         startTimer()
@@ -66,6 +70,8 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     private fun getGameSettings(level: Level){
         this.level = level
         this.gameSettings = getGameSettingUseCase(level)
+        _minPercent.value = gameSettings.minPercentOfRightAnswers
+
     }
     private fun generateQuestion(){
         _question.value = generatedQuestionUseCase(gameSettings.maxSumValue)
