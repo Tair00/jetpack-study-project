@@ -24,6 +24,8 @@ class GameViewModel: ViewModel() {
     private val  _question = MutableLiveData<Question>()
     val question: LiveData<Question>
         get() = _question
+    private var countOfRightAnswer = 0
+    private var countOfQuestions = 0
 
 
     val formattedTime: LiveData<String>
@@ -35,7 +37,16 @@ class GameViewModel: ViewModel() {
         generateQuestion()
     }
     fun chooseAnswer(number: Int){
+        checkAnswer(number)
+        generateQuestion()
+    }
+    private fun checkAnswer(number: Int){
+        val rightAnswer = question.value?.rightAnswer
+        if(number == rightAnswer){
+            countOfRightAnswer++
 
+        }
+        countOfQuestions++
     }
     private fun getGameSettings(level: Level){
         this.level = level
