@@ -34,6 +34,9 @@ class GameViewModel: ViewModel() {
         startTimer()
         generateQuestion()
     }
+    fun chooseAnswer(number: Int){
+
+    }
     private fun getGameSettings(level: Level){
         this.level = level
         this.gameSettings = getGameSettingUseCase(level)
@@ -43,8 +46,9 @@ class GameViewModel: ViewModel() {
 
     }
 
-    fun startTimer(){
-         timer = object : CountDownTimer(gameSettings.gameTimeInSecond,
+    fun startTimer() {
+         timer = object : CountDownTimer(
+             gameSettings.gameTimeInSeconds * MILLIS_IN_SECONDS,
             MILLIS_IN_SECONDS){
             override fun onTick(p0: Long) {
         _formattedTime.value = formatTime(p0)
