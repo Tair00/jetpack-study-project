@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.compositionapp.data.GameRepositoryImpl
 import com.example.compositionapp.domain.entity.GameSettings
 import com.example.compositionapp.domain.entity.Level
+import com.example.compositionapp.domain.entity.Question
 import com.example.compositionapp.domain.repository.GameRepository
 import com.example.compositionapp.domain.usecases.GenerateQuestionUseCase
 import com.example.compositionapp.domain.usecases.GetGameSettingsUseCase
@@ -18,24 +19,42 @@ class GameViewModel: ViewModel() {
     private val  generatedQuestionUseCase = GenerateQuestionUseCase(repository)
     private val  getGameSettingUseCase = GetGameSettingsUseCase(repository)
     private val _formattedTime = MutableLiveData <String>()
+    private var timer: CountDownTimer? = null
+
+    private val  _question = MutableLiveData<Question>()
+    val question: LiveData<Question>
+        get() = _question
+
+
     val formattedTime: LiveData<String>
         get() = _formattedTime
+
     fun startGame(level: Level){
+        getGameSettings(level)
+        startTimer()
+        generateQuestion()
+    }
+    private fun getGameSettings(level: Level){
         this.level = level
         this.gameSettings = getGameSettingUseCase(level)
     }
+    private fun generateQuestion(){
+        _question.value = generatedQuestionUseCase(gameSettings.maxSumValue)
+
+    }
 
     fun startTimer(){
-        val timer = object : CountDownTimer(gameSettings.gameTimeInSecond,
+         timer = object : CountDownTimer(gameSettings.gameTimeInSecond,
             MILLIS_IN_SECONDS){
             override fun onTick(p0: Long) {
-                TODO("Not yet implemented")
+        _formattedTime.value = formatTime(p0)
             }
 
             override fun onFinish() {
                finishGame()
             }
         }
+        timer?.start()
     }
     private fun formatTime(p0: Long): String{
         val seconds = p0/ MILLIS_IN_SECONDS
@@ -45,6 +64,11 @@ class GameViewModel: ViewModel() {
     }
     private fun finishGame(){
 
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        timer?.cancel()
     }
     companion object{
         private const val MILLIS_IN_SECONDS = 1000L
