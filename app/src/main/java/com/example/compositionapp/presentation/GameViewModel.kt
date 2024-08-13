@@ -2,7 +2,6 @@ package com.example.compositionapp.presentation
 
 import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +11,6 @@ import com.example.compositionapp.domain.entity.GameResult
 import com.example.compositionapp.domain.entity.GameSettings
 import com.example.compositionapp.domain.entity.Level
 import com.example.compositionapp.domain.entity.Question
-import com.example.compositionapp.domain.repository.GameRepository
 import com.example.compositionapp.domain.usecases.GenerateQuestionUseCase
 import com.example.compositionapp.domain.usecases.GetGameSettingsUseCase
 
@@ -66,10 +64,10 @@ class GameViewModel(
     private var countOfQuestions = 0
 
     init {
-        startGame()
+        startGame(level)
     }
 
-     fun startGame() {
+     fun startGame(level: Level) {
         getGameSettings()
         startTimer()
         generateQuestion()

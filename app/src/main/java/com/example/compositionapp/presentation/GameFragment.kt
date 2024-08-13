@@ -1,6 +1,5 @@
 package com.example.compositionapp.presentation
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.compositionapp.R
-import com.example.compositionapp.databinding.FragmentChooseLevelBinding
 import com.example.compositionapp.databinding.FragmentGameBinding
 import com.example.compositionapp.domain.entity.GameResult
 import com.example.compositionapp.domain.entity.Level
@@ -53,6 +51,14 @@ class GameFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
+        setClickLIstenerToOptions()
+        viewModel.startGame(level)
+    }
+
+    private fun setClickLIstenerToOptions(){
+        for(tvOption in tvOptions){
+            viewModel.chooseAnswer(tvOption.text.toString().toInt())
+        }
     }
     private fun observeViewModel(){
         viewModel.question.observe(viewLifecycleOwner){
