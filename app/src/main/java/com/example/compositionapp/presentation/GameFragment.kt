@@ -15,7 +15,12 @@ import com.example.compositionapp.domain.entity.Level
 class GameFragment: Fragment() {
     private lateinit var level: Level
     private  var _binding: FragmentGameBinding? = null
-    private lateinit var viewModel: GameViewModel
+    private val viewModel: GameViewModel by lazy{
+        ViewModelProvider(
+            this,
+         ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        )[GameViewModel::class.java]
+    }
     private val binding: FragmentGameBinding
         get ()= _binding ?: throw RuntimeException("FragmentGameBinding == null")
 
@@ -30,7 +35,7 @@ class GameFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this,
+         ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
         )[GameViewModel::class.java]
         binding.tvOption1
