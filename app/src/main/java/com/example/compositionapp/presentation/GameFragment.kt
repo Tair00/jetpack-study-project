@@ -1,6 +1,7 @@
 package com.example.compositionapp.presentation
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -72,8 +73,10 @@ class GameFragment: Fragment() {
 
         }
         viewModel.enoughPercent.observe(viewLifecycleOwner){
-
+            val color = getColorByState(it)
+            binding.progressBar.progressTintList = ColorStateList.valueOf(color)
         }
+
     }
 
     private fun getColorByState(goodState: Boolean): Int{
