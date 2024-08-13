@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.compositionapp.R
@@ -15,6 +16,19 @@ import com.example.compositionapp.domain.entity.Level
 class GameFragment: Fragment() {
     private lateinit var level: Level
     private  var _binding: FragmentGameBinding? = null
+    private val tvOptions by lazy {
+        mutableListOf<TextView>().apply {
+            add(binding.tvOption1)
+            add(binding.tvOption2)
+            add(binding.tvOption3)
+            add(binding.tvOption4)
+            add(binding.tvOption5)
+            add(binding.tvOption6)
+        }
+    }
+
+
+
     private val viewModel: GameViewModel by lazy{
         ViewModelProvider(
             this,
