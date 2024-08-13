@@ -65,16 +65,22 @@ class GameFragment: Fragment() {
         }
         viewModel.percentOfRightAnswers.observe(viewLifecycleOwner){
             binding.progressBar.setProgress(it,true)
-
         }
         viewModel.enoughCount.observe(viewLifecycleOwner){
-
             binding.tvAnswersProgress.setTextColor(getColorByState(it))
-
         }
         viewModel.enoughPercent.observe(viewLifecycleOwner){
             val color = getColorByState(it)
             binding.progressBar.progressTintList = ColorStateList.valueOf(color)
+        }
+        viewModel.formattedTime.observe(viewLifecycleOwner){
+            binding.tvTimer.text = it
+        }
+        viewModel.minPercent.observe(viewLifecycleOwner){
+            binding.progressBar.secondaryProgress = it
+        }
+        viewModel.gameResult.observe(viewLifecycleOwner){
+            launchGameFinishedFragment(it)
         }
 
     }
