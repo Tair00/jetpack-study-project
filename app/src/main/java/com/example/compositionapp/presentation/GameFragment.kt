@@ -88,6 +88,9 @@ class GameFragment: Fragment() {
         viewModel.gameResult.observe(viewLifecycleOwner){
             launchGameFinishedFragment(it)
         }
+        viewModel.progressAnswers.observe(viewLifecycleOwner){
+            binding.tvAnswersProgress.text = it
+        }
 
     }
 
