@@ -1,10 +1,12 @@
 package com.example.compositionapp.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.compositionapp.R
@@ -55,7 +57,32 @@ class GameFragment: Fragment() {
         viewModel.question.observe(viewLifecycleOwner){
             binding.tvSum.text= it.sum.toString()
             binding.tvLeftNumber.text = it.visibledNumber.toString()
+            for (i in 0 until tvOptions.size){
+                tvOptions [i].text = it.options[i].toString()
+
+            }
         }
+        viewModel.percentOfRightAnswers.observe(viewLifecycleOwner){
+            binding.progressBar.setProgress(it,true)
+
+        }
+        viewModel.enoughCount.observe(viewLifecycleOwner){
+
+            binding.tvAnswersProgress.setTextColor(getColorByState(it))
+
+        }
+        viewModel.enoughPercent.observe(viewLifecycleOwner){
+
+        }
+    }
+
+    private fun getColorByState(goodState: Boolean): Int{
+        val colorResId = if (goodState){
+            android.R.color.holo_green_light
+        }else{
+            android.R.color.holo_red_light
+        }
+         return ContextCompat.getColor(requireContext(),colorResId)
     }
     private fun launchGameFinishedFragment(gameResult: GameResult){
         requireActivity().supportFragmentManager.beginTransaction()
