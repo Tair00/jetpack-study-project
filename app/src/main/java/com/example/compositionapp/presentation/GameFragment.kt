@@ -35,10 +35,13 @@ class GameFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         ViewModelProvider(this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-        )[GameViewModel::class.java]
-        binding.tvOption1
+        observeViewModel()
+    }
+    private fun observeViewModel(){
+        viewModel.question.observe(viewLifecycleOwner){
+            binding.tvSum.text= it.sum.toString()
+            binding.tvLeftNumber.text = it.visibledNumber.toString()
+        }
     }
     private fun launchGameFinishedFragment(gameResult: GameResult){
         requireActivity().supportFragmentManager.beginTransaction()
