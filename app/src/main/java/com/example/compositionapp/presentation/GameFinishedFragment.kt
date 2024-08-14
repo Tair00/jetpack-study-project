@@ -32,6 +32,25 @@ class GameFinishedFragment : Fragment() {
         _binding = FragmentGameFinishedBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupClickListeners()
+        bindViews()
+    }
+
+    private fun setupClickListeners() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                retryGame()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        binding.buttonRetry.setOnClickListener {
+            retryGame()
+        }
+    }
+
     private fun bindViews() {
         with(binding) {
             emojiResult.setImageResource(getSmileResId())
@@ -53,6 +72,7 @@ class GameFinishedFragment : Fragment() {
             )
         }
     }
+
     private fun getSmileResId(): Int {
         return if (gameResult.winner) {
             R.drawable.ic_smile
@@ -60,24 +80,12 @@ class GameFinishedFragment : Fragment() {
             R.drawable.ic_sad
         }
     }
+
     private fun getPercentOfRightAnswers() = with(gameResult) {
         if (countOfQuestions == 0) {
             0
         } else {
             ((countOfRightAnswers / countOfQuestions.toDouble()) * 100).toInt()
-        }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                retryGame()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-        binding.buttonRetry.setOnClickListener {
-            retryGame()
         }
     }
 
