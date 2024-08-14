@@ -14,6 +14,7 @@ import com.example.compositionapp.domain.entity.Question
 import com.example.compositionapp.domain.usecases.GenerateQuestionUseCase
 import com.example.compositionapp.domain.usecases.GetGameSettingsUseCase
 
+
 class GameViewModel(
     private val application: Application,
     private val level: Level
@@ -64,10 +65,10 @@ class GameViewModel(
     private var countOfQuestions = 0
 
     init {
-        startGame(level)
+        startGame()
     }
 
-     fun startGame(level: Level) {
+    private fun startGame() {
         getGameSettings()
         startTimer()
         generateQuestion()
