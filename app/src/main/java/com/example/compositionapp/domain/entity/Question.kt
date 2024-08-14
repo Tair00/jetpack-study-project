@@ -1,10 +1,11 @@
 package com.example.compositionapp.domain.entity
 
-data class Question (
+data class Question(
     val sum: Int,
-    val visibledNumber: Int,
+    val visibleNumber: Int,
     val options: List<Int>
-){
+) {
+
     val rightAnswer: Int
-        get() = sum - visibledNumber
+        get() = sum - visibleNumber
 }
