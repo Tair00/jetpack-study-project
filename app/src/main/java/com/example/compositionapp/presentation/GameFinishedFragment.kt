@@ -53,6 +53,13 @@ class GameFinishedFragment : Fragment() {
             )
         }
     }
+    private fun getSmileResId(): Int {
+        return if (gameResult.winner) {
+            R.drawable.ic_smile
+        } else {
+            R.drawable.ic_sad
+        }
+    }
     private fun getPercentOfRightAnswers() = with(gameResult) {
         if (countOfQuestions == 0) {
             0
