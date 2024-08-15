@@ -109,7 +109,7 @@ class GameFinishedFragment : Fragment() {
 
     companion object {
 
-        private const val KEY_GAME_RESULT = "game_result"
+         const val KEY_GAME_RESULT = "game_result"
 
         fun newInstance(gameResult: GameResult): GameFinishedFragment {
             return GameFinishedFragment().apply {
