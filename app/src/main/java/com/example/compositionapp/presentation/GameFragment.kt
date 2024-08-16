@@ -123,17 +123,5 @@ class GameFragment : Fragment() {
         )
     }
 
-    companion object {
 
-        val NAME = "GameFragment"
-        const val KEY_LEVEL = "level"
-
-        fun newInstance(level: Level): GameFragment {
-            return GameFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_LEVEL, level)
-                }
-            }
-        }
-    }
 }
