@@ -118,10 +118,9 @@ class GameFragment : Fragment() {
 
     private fun launchGameFinishedFragment(gameResult: GameResult) {
 
-        val args =Bundle().apply {
-            putParcelable(GameFinishedFragment.KEY_GAME_RESULT, gameResult)
-        }
-        findNavController().navigate(R.id.action_gameFragment_to_gameFinishedFragment,args)
+        findNavController().navigate(
+            GameFragmentDirections.actionGameFragmentToGameFinishedFragment(gameResult)
+        )
     }
 
     companion object {
