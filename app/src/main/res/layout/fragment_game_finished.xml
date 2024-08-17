@@ -45,7 +45,7 @@
         android:id="@+id/tv_score_answers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/score_answers"
+        android:text="@{gameResult.countOfRightAnswersString}"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/tv_required_percentage"
         app:layout_constraintEnd_toEndOf="@id/tv_required_answers"
