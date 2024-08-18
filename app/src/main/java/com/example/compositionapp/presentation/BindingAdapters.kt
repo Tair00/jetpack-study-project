@@ -11,3 +11,10 @@ fun bindRequiredAnswers(textView: TextView,count : Int){
                 count
             )
 }
+@BindingAdapter("scoreAnswers")
+fun bindScoreAnswers(textView: TextView,count : Int){
+    textView.text = String.format(
+        textView.context.getString(R.string.score_answers),
+        count
+    )
+}
