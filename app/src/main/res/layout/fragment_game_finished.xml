@@ -20,6 +20,7 @@
         android:layout_height="0dp"
         android:layout_margin="48dp"
         android:contentDescription="@string/game_over"
+        app:resultEmoji="@gameResult.winner"
         app:layout_constraintBottom_toTopOf="@id/tv_required_answers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

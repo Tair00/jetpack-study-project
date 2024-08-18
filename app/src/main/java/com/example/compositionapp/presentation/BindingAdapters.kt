@@ -1,5 +1,6 @@
 package com.example.compositionapp.presentation
 
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.compositionapp.R
@@ -33,6 +34,20 @@ fun bindScorePercentage(textView: TextView, gameResult: GameResult){
         getPercentOfRightAnswers(gameResult)
     )
 }
+@BindingAdapter("resultEmoji")
+    fun bindResultEmoji(imageView: ImageView,winner:Boolean){
+
+    imageView.setImageResource(getSmileResId(winner))
+    }
+
+private fun getSmileResId(winner:Boolean): Int {
+    return if (winner) {
+        R.drawable.ic_smile
+    } else {
+        R.drawable.ic_sad
+    }
+}
+
 private fun getPercentOfRightAnswers(gameResult: GameResult) = with(gameResult) {
     if (countOfQuestions == 0) {
         0
